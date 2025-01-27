@@ -29,9 +29,7 @@ function Reorder() {
       list: [],
     },
   };
-  const textAreaRef = useRef();
   const [columns, setColumns] = useState(initialColumns);
-  const [todos, setTodos] = useState(initialColumns.todo);
   const [inputValue, setInputValue] = useState<string>('');
   function onAddNewTodo(newTodoInput: string) {
     console.warn('newTodoInput', newTodoInput);
