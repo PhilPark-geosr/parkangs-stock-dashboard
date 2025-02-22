@@ -8,6 +8,7 @@ import {
   Legend,
   Tooltip,
   Label,
+  ResponsiveContainer,
 } from 'recharts';
 
 export default function StockChart({
@@ -19,33 +20,32 @@ export default function StockChart({
   x1: string;
   x2: string;
 }) {
-  const { data, isStale } = useFetchStocks(company);
+  const { data } = useFetchStocks(company);
+
   return (
-    <>
-      {/* 디버깅용 코드  */}
-      {/* <h1>{isStale ? '상했어요' : '신선해요'}</h1> */}
-      <h1>{company} 주식</h1>
-      <LineChart width={500} height={300} data={data}>
-        <XAxis dataKey="basDt">
-          <Label value="날짜" offset={10} position="insideBottom" />
-        </XAxis>
-        <YAxis domain={['dataMin - 5.0', 'dataMax + 15.0']} />
-        <Tooltip />
-        <Legend />
-        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-        <Line
-          key={Math.random()}
-          type="monotone"
-          dataKey={x1}
-          stroke="#8884d8"
-        />
-        <Line
-          key={Math.random()}
-          type="monotone"
-          dataKey={x2}
-          stroke="#82ca9d"
-        />
-      </LineChart>
-    </>
+    <div className="block w-full bg-white border-black-500 border-2 rounded-lg text-lg p-4">
+      <h2>{company} 주식</h2>
+      <ResponsiveContainer width="101%" aspect={4 / 3}>
+        <LineChart data={data}>
+          <XAxis dataKey="basDt" style={{ fontSize: '13px' }}>
+            <Label
+              value="날짜"
+              offset={-3}
+              position="insideBottom"
+              style={{ fontSize: '13px' }}
+            />
+          </XAxis>
+          <YAxis
+            domain={['dataMin - 5.0', 'dataMax + 15.0']}
+            style={{ fontSize: '13px' }}
+          />
+          <Tooltip />
+          <Legend />
+          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+          <Line type="monotone" dataKey={x1} stroke="#8884d8" />
+          <Line type="monotone" dataKey={x2} stroke="#82ca9d" />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
