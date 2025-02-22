@@ -2,12 +2,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { InlineConfig, UserConfig } from 'vite';
-
+import tailwindcss from '@tailwindcss/vite';
 interface VitestConfigExport extends UserConfig {
   test: InlineConfig;
 }
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   test: {
     globals: true,
     environment: 'jsdom',
