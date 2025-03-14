@@ -1,5 +1,11 @@
 import './App.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/react-router';
 
 import StockChartList from './components/StockChartList';
 import KpiCard from './components/KpiCard';
@@ -21,18 +27,29 @@ const companies = [
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* 주요성과지표 (Key Performance Indicator) */}
-      <div className="container mx-auto p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-          {companies.map((obj) => (
-            <KpiCard key={obj.id} company={obj.company} />
-          ))}
-        </div>
-      </div>
+    <>
+      <header>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </header>
 
-      <StockChartList initialItems={stockItems} />
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        {/* 주요성과지표 (Key Performance Indicator) */}
+        <div className="container mx-auto p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            {companies.map((obj) => (
+              <KpiCard key={obj.id} company={obj.company} />
+            ))}
+          </div>
+        </div>
+
+        <StockChartList initialItems={stockItems} />
+      </QueryClientProvider>
+    </>
   );
 }
 
