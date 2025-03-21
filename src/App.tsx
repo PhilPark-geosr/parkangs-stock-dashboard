@@ -9,6 +9,7 @@ import {
 
 import StockChartList from './components/StockChartList';
 import KpiCard from './components/KpiCard';
+import Sidebar from './components/Sidebar';
 
 const queryClient = new QueryClient();
 const stockItems = [
@@ -27,7 +28,7 @@ const companies = [
 
 function App() {
   return (
-    <>
+    <div className="max-w-screen-lg mx-auto">
       <header>
         <SignedOut>
           <SignInButton />
@@ -36,7 +37,7 @@ function App() {
           <UserButton />
         </SignedIn>
       </header>
-
+      <Sidebar />
       <QueryClientProvider client={queryClient}>
         {/* 주요성과지표 (Key Performance Indicator) */}
         <div className="container mx-auto p-6">
@@ -49,7 +50,7 @@ function App() {
 
         <StockChartList initialItems={stockItems} />
       </QueryClientProvider>
-    </>
+    </div>
   );
 }
 
